@@ -43,14 +43,13 @@
         - Extensible query handlers
         - Support for custom filtering logic
 
-      The library is particularly useful for building modern web applications that require efficient data handling with minimal boilerplate code.    </description>
-    <tags>dotnet aspnetcore middleware error-handling exception-handling error-middleware csharp json microservices logging correlation-id nuget-package error-tracking debugging web-api</tags>
+      The library is particularly useful for building modern web applications that require efficient data handling with minimal boilerplate code.
+    </description>
+    <tags>autocomplete filtering sorting database csharp netcore net8 ef-core mongodb orm dynamic-filters multi-sort validation search-algorithms query-patterns customizable extensible debugging web-api</tags>
     <dependencies>
-      <dependency id="FluentValidation" version="11.8.0" />
-      <dependency id="MediatR.Contracts" version="2.0.1" />
+      <dependency id="Cross.CQRS" version="10.1.3" />
       <dependency id="Microsoft.AspNetCore.Mvc.Core" version="2.3.0" />
-      <dependency id="Microsoft.Extensions.Configuration.Binder" version="8.0.2" />
-      <dependency id="Microsoft.Extensions.Hosting.Abstractions" version="8.0.1" />
+      <dependency id="Microsoft.EntityFrameworkCore" version="8.0.8" />
     </dependencies>
   </metadata>
   <files>
