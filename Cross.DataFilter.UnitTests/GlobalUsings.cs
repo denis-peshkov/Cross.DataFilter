@@ -1,0 +1,12 @@
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using Cross.CQRS.Queries;
+global using Cross.DataFilter.Dtos;
+global using Cross.DataFilter.Enums;
+global using Cross.DataFilter.Extensions;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Logging;
+global using Moq;
+global using NUnit.Framework;
