@@ -35,7 +35,7 @@
     <PackageReference Include="FluentAssertions" Version="6.12.1" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
-    <PackageReference Include="coverlet.msbuild " Version="6.0.2" />
+    <PackageReference Include="coverlet.msbuild" Version="6.0.2" />
     <PackageReference Include="opencover" Version="4.7.1221" />
   </ItemGroup>
 
@@ -47,7 +47,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\Cross.DataFilter\Cross.DataFilter.csproj" />
   </ItemGroup>

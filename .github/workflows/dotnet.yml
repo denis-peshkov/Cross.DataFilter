@@ -21,7 +21,7 @@ jobs:
 
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'Cross.DataFilter.sln'
+      SOLUTION: 'Cross.DataFilter.slnx'
 
     runs-on: ubuntu-22.04 # ubuntu-latest
 
@@ -93,10 +93,13 @@ jobs:
             -Dsonar.projectKey=Cross.DataFilter
             -Dsonar.cs.opencover.reportsPaths=TestResults/**/coverage.opencover.xml
             -Dsonar.sources=Cross.DataFilter/
-            -Dsonar.tests=Cross.DataFilter.UnitTests/
+            -Dsonar.tests=Cross.DataFilter.Tests/
             -Dsonar.verbose=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Update nuspec version
+        uses: denis-peshkov/update-nuspec-action@v2
 
       - name: Nuget Pack
         run: nuget pack Cross.DataFilter/config.nuspec -Symbols -Version ${{ env.semVer }}

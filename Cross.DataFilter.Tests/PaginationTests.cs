@@ -1,4 +1,4 @@
-namespace Cross.DataFilter.UnitTests;
+﻿namespace Cross.DataFilter.Tests;
 
 [TestFixture]
 public class PaginationTests
@@ -39,7 +39,8 @@ public class PaginationTests
     }
 
     [Test]
-    public void PaginationRequest_ValidProperties()
+    [Category(TestCategory.UNIT)]
+    public void GivenValidPagingAndSorting_WhenCreateQuery_ThenPropertiesMatch()
     {
         // Arrange
         var query = new TestEntityPaginationQuery(
@@ -54,12 +55,14 @@ public class PaginationTests
         // Assert
         Assert.That(query.Page, Is.EqualTo(2));
         Assert.That(query.PageSize, Is.EqualTo(8));
-        Assert.That(query.Sorting.First().SortColumnName, Is.EqualTo("Name"));
+        Assert.That(query.Sorting, Is.Not.Null);
+        Assert.That(query.Sorting!.First().SortColumnName, Is.EqualTo("Name"));
         Assert.That(query.Sorting.First().SortDirection, Is.EqualTo(SortDirectionEnum.Asc));
     }
 
     [Test]
-    public void PaginationResult_ValidProperties()
+    [Category(TestCategory.UNIT)]
+    public void GivenItems_WhenCreatePaginatedResult_ThenPropertiesMatch()
     {
         // Arrange
         var items = new List<TestEntity>
@@ -75,7 +78,8 @@ public class PaginationTests
     }
 
     [Test]
-    public async Task PaginationQueryHandler_HandleAsync_ReturnsPaginatedResult()
+    [Category(TestCategory.INTEGRATION)]
+    public async Task GivenSeededEntities_WhenHandleFirstPage_ThenReturnsPaginatedResult()
     {
         // Arrange
         var query = new TestEntityPaginationQuery(
@@ -99,7 +103,8 @@ public class PaginationTests
     }
 
     [Test]
-    public async Task PaginationQueryHandler_HandleAsync_WithInvalidSkip_ReturnsEmptyResult()
+    [Category(TestCategory.INTEGRATION)]
+    public async Task GivenPageBeyondData_WhenHandle_ThenReturnsEmptyPageWithTotalCount()
     {
         // Arrange
         var query = new TestEntityPaginationQuery(
@@ -123,7 +128,8 @@ public class PaginationTests
     }
 
     [Test]
-    public async Task PaginationQueryHandler_HandleAsync_WithDescendingSort()
+    [Category(TestCategory.INTEGRATION)]
+    public async Task GivenDescendingSort_WhenHandle_ThenReturnsSortedPage()
     {
         // Arrange
         var query = new TestEntityPaginationQuery(

@@ -1,0 +1,15 @@
+﻿<Solution>
+  <Folder Name="/assets/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="GitVersion.yml" />
+    <File Path="icon.png" />
+    <File Path="icon.svg" />
+    <File Path="LICENSE.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Cross.DataFilter.Tests/Cross.DataFilter.Tests.csproj" />
+  <Project Path="Cross.DataFilter/Cross.DataFilter.csproj" />
+</Solution>

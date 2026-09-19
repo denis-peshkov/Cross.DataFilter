@@ -1,6 +1,4 @@
-﻿using Cross.DataFilter.Handlers;
-
-namespace Cross.DataFilter.UnitTests;
+﻿namespace Cross.DataFilter.Tests;
 
 public sealed record TestEntityPaginationQuery : PaginatedItemsQuery<TestEntityFilter, TestEntity>
 {

@@ -1,4 +1,4 @@
-namespace Cross.DataFilter.UnitTests;
+﻿namespace Cross.DataFilter.Tests;
 
 public class TestEntityPaginationQueryHandler : QueryHandler<TestEntityPaginationQuery, PaginatedResult<TestEntity>>
 {
