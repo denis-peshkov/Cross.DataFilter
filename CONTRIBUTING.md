@@ -71,7 +71,7 @@ Do not mix refactoring, formatting untouched files, and a feature in one PR. Dri
 - `Cross.DataFilter/` — library (`Handlers/`, `Dtos/`, `Extensions/`, `Attributes/`, `Enums/`);
 - `Cross.DataFilter.Tests/` — unit / integration tests;
 - `README.md`, `docs/CHANGELOG.md`, `docs/BREAKING.md`, `Cross.DataFilter/config.nuspec`;
-- CI: `.github/workflows/dotnet.yml`.
+- CI: `.github/workflows/dotnet.yml`, `.github/workflows/branch-policy.yml`, `.github/workflows/triage.yml`.
 
 ### Out of scope (without maintainer discussion)
 
@@ -111,7 +111,7 @@ Git tags are created only for **stable** `X.Y.Z` (no `-` in `semVer`) on `master
 - PRs targeting **`master`** — repository owner only (`denis-peshkov`).
 - Pushing to **`master`**, **`release/*`**, or **`hotfix/*`** — owner only.
 - Release merge `dev` → `master`, tags, and NuGet publish — maintainer step after the release checklist.
-- CI today: `.github/workflows/dotnet.yml` (build, test, SonarCloud, pack, tag on `master`/`release/*`/`hotfix/*`, NuGet push). Branch-policy / back-merge workflows are not present in this repository yet; follow the table above anyway.
+- CI today: `.github/workflows/dotnet.yml` (build, test, SonarCloud, pack, tag on `master`/`release/*`/`hotfix/*`, NuGet push), `.github/workflows/branch-policy.yml` (owner-only PRs/pushes to `master`/`release/*`/`hotfix/*`), `.github/workflows/backmerge-master-to-dev.yml` (owner `TAGTOKEN` back-merge; bootstraps `dev` if missing), and `.github/workflows/triage.yml` (optional Cursor triage; needs `CURSOR_API_KEY`).
 
 Versioning: **GitVersion** (`GitVersion.yml`). `dev` is pre-release (`-dev.N`), not a release branch.
 
