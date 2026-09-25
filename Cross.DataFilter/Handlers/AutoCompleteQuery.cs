@@ -1,6 +1,6 @@
 ﻿namespace Cross.DataFilter.Handlers;
 
-public abstract class AutoCompleteQuery : Query<AutoCompleteResult>
+public abstract record AutoCompleteQuery : Query<AutoCompleteResult>
 {
     public int? Page { get; }
 
@@ -13,7 +13,7 @@ public abstract class AutoCompleteQuery : Query<AutoCompleteResult>
     }
 }
 
-public class AutoCompleteQuery<TFilter> : AutoCompleteQuery
+public abstract record AutoCompleteQuery<TFilter> : AutoCompleteQuery
 {
     public TFilter Filter { get; }
 

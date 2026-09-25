@@ -1,4 +1,17 @@
-[![Nuget](https://img.shields.io/nuget/v/Cross.DataFilter.svg)](https://nuget.org/packages/Cross.DataFilter/) [![Documentation](https://img.shields.io/badge/docs-wiki-yellow.svg)](https://github.com/denis-peshkov/Cross.DataFilter/wiki)
+[![License](https://img.shields.io/github/license/denis-peshkov/Cross.DataFilter)](LICENSE)
+[![GitHub Release Date](https://img.shields.io/github/release-date/denis-peshkov/Cross.DataFilter?label=released)](https://github.com/denis-peshkov/Cross.DataFilter/releases)
+[![NuGetVersion](https://img.shields.io/nuget/v/Cross.DataFilter.svg)](https://nuget.org/packages/Cross.DataFilter/)
+[![NugetDownloads](https://img.shields.io/nuget/dt/Cross.DataFilter.svg)](https://nuget.org/packages/Cross.DataFilter/)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Cross.DataFilter&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Cross.DataFilter)
+[![issues](https://img.shields.io/github/issues/denis-peshkov/Cross.DataFilter)](https://github.com/denis-peshkov/Cross.DataFilter/issues)
+[![.NET PR](https://github.com/denis-peshkov/Cross.DataFilter/actions/workflows/dotnet.yml/badge.svg?event=pull_request)](https://github.com/denis-peshkov/Cross.DataFilter/actions/workflows/dotnet.yml)
+
+![Size](https://img.shields.io/github/repo-size/denis-peshkov/Cross.DataFilter)
+[![GitHub contributors](https://img.shields.io/github/contributors/denis-peshkov/Cross.DataFilter)](https://github.com/denis-peshkov/Cross.DataFilter/contributors)
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/denis-peshkov/Cross.DataFilter/latest?label=new+commits)](https://github.com/denis-peshkov/Cross.DataFilter/commits/master)
+![Activity](https://img.shields.io/github/commit-activity/w/denis-peshkov/Cross.DataFilter)
+![Activity](https://img.shields.io/github/commit-activity/m/denis-peshkov/Cross.DataFilter)
+![Activity](https://img.shields.io/github/commit-activity/y/denis-peshkov/Cross.DataFilter)
 
 # Cross.DataFilter
 
@@ -47,17 +60,17 @@ Install-Package Cross.DataFilter
 ### Basic Pagination Query
 
 ```csharp
-public class MyPaginatedQuery : PaginatedItemsQuery<MyFilter, MyEntity>
+public sealed record MyPaginatedQuery : PaginatedItemsQuery<MyFilter, MyEntity>
 {
-    public MyPaginatedQuery(MyFilter request)
-        : base(request) { }
+    public MyPaginatedQuery(int? page, int? pageSize, IReadOnlyCollection<SortingDto>? sorting, MyFilter? filter)
+        : base(page, pageSize, sorting, filter) { }
 }
 ```
 
 ### AutoComplete Implementation
 
 ```csharp
-public class MyAutoCompleteQuery : AutoCompleteQuery
+public sealed record MyAutoCompleteQuery : AutoCompleteQuery<MyFilter>
 {
     public MyAutoCompleteQuery(int? page, int? pageSize, MyFilter filter)
         : base(page, pageSize, filter) { }

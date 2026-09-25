@@ -1,6 +1,6 @@
 ﻿namespace Cross.DataFilter.Handlers;
 
-public abstract class PaginatedItemsQuery<TResult> : Query<PaginatedResult<TResult>>, IHasPaging
+public abstract record PaginatedItemsQuery<TResult> : Query<PaginatedResult<TResult>>, IHasPaging
     where TResult : class
 {
     public int? Page { get; }
@@ -17,7 +17,7 @@ public abstract class PaginatedItemsQuery<TResult> : Query<PaginatedResult<TResu
     }
 }
 
-public abstract class PaginatedItemsQuery<TFilter, TResult> : PaginatedItemsQuery<TResult>
+public abstract record PaginatedItemsQuery<TFilter, TResult> : PaginatedItemsQuery<TResult>
     where TFilter : class
     where TResult : class
 {

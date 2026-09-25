@@ -1,1 +1,1 @@
-﻿[assembly: InternalsVisibleTo("Cross.DataFilter.UnitTests")]
+﻿[assembly: InternalsVisibleTo("Cross.DataFilter.Tests")]
