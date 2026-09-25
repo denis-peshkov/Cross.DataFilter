@@ -23,6 +23,7 @@ on:
 
 jobs:
   build:
+    name: build # required_status_checks context in .github/rulesets/*.json
     permissions: # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#defining-access-for-the-github_token-scopes
       contents: write
       id-token: write
@@ -30,6 +31,7 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Cross.DataFilter.slnx'
+      TEST_PROJECT: 'Cross.DataFilter.Tests/Cross.DataFilter.Tests.csproj'
       QUALITY_GATE_WAIT: ${{ github.event_name == 'pull_request' }}
 
     runs-on: ubuntu-22.04 # ubuntu-latest
@@ -46,12 +48,8 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            6.0.x
-            7.0.x
-            8.0.x
-            9.0.x
-            10.0.x
+          # Library + tests TFM is net8.0 only (see Cross.DataFilter*.csproj).
+          dotnet-version: 8.0.x
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v2.0.0
@@ -68,7 +66,7 @@ jobs:
         # defaults to configFilePath: GitVersion.yml (useConfigFile removed in v3+/v4)
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore "$SOLUTION"
 
       - name: Build
         run: |
@@ -80,7 +78,7 @@ jobs:
             -p:InformationalVersion="${GitVersion_InformationalVersion}" \
             -p:Company="Denis Peshkov" \
             -p:Product="Cross.DataFilter" \
-            -p:Description="A lightweight .NET library designed to simplify data filtering, sorting, and pagination in Entity Framework Core applications." \
+            -p:Description="A lightweight .NET library designed to simplify data filtering%2C sorting%2C and pagination in Entity Framework Core applications." \
             -p:RepositoryUrl="https://github.com/denis-peshkov/Cross.DataFilter.git" \
             -p:RepositoryType=git \
             -p:CLSCompliant=true \
