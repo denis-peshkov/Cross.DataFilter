@@ -55,8 +55,7 @@ public class PaginationTests
         // Assert
         Assert.That(query.Page, Is.EqualTo(2));
         Assert.That(query.PageSize, Is.EqualTo(8));
-        Assert.That(query.Sorting, Is.Not.Null);
-        Assert.That(query.Sorting!.First().SortColumnName, Is.EqualTo("Name"));
+        Assert.That(query.Sorting.First().SortColumnName, Is.EqualTo("Name"));
         Assert.That(query.Sorting.First().SortDirection, Is.EqualTo(SortDirectionEnum.Asc));
     }
 

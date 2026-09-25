@@ -24,7 +24,7 @@ Breaking upgrade notes for NuGet consumers: [`BREAKING.md`](BREAKING.md).
 
 ### Tests
 
-- Renamed test project `Cross.DataFilter.UnitTests` → `Cross.DataFilter.Tests` with `TestCategory` (`Unit` / `Integration`) on each `[Test]`.
+- Renamed test project `Cross.DataFilter.Tests` → `Cross.DataFilter.Tests` with `TestCategory` (`Unit` / `Integration`) on each `[Test]`.
 - `TestEntityPaginationQuery` is `sealed record`; test project PropertyGroup / JWT package alignment.
 
 ### Documentation

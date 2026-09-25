@@ -8,9 +8,17 @@ on:
       - master
       - release/*
       - hotfix/*
+      - dev
+      - feature/*
+      - fix/*
+      - chore/*
   pull_request:
+    types: [opened, synchronize, reopened]
     branches:
       - master
+      - release/*
+      - hotfix/*
+      - dev
   workflow_dispatch: # allows manual runs from the Actions tab
 
 jobs:
@@ -22,6 +30,7 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'Cross.DataFilter.slnx'
+      QUALITY_GATE_WAIT: ${{ github.event_name == 'pull_request' }}
 
     runs-on: ubuntu-22.04 # ubuntu-latest
 
@@ -31,6 +40,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Disabling shallow clones is recommended for improving the relevancy of reporting
+          # Avoid persisting GITHUB_TOKEN so tag push can authenticate as TAGTOKEN (admin ruleset bypass).
+          persist-credentials: false
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -46,14 +57,15 @@ jobs:
         uses: NuGet/setup-nuget@v2.0.0
 
       - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v1.1.1
+        # v1.x only allows GV >=5.2 <6.1; 6.8.x needs actions v4.7.x
+        # https://github.com/GitTools/actions/blob/main/docs/versions.md
+        uses: gittools/actions/gitversion/setup@v4.7.0
         with:
-          versionSpec: 5.12.0
+          versionSpec: 6.8.2
 
       - name: Determine Version
-        uses: gittools/actions/gitversion/execute@v1.1.1
-        with:
-          useConfigFile: true
+        uses: gittools/actions/gitversion/execute@v4.7.0
+        # defaults to configFilePath: GitVersion.yml (useConfigFile removed in v3+/v4)
 
       - name: Restore dependencies
         run: dotnet restore
@@ -89,11 +101,13 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@v5 # Ex: v4.0.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
         with:
           args: >
-            -Dsonar.organization=peshkov
+            -Dsonar.organization=denis-peshkov
             -Dsonar.projectKey=Cross.DataFilter
+            -Dsonar.projectName=Cross.DataFilter
             -Dsonar.cs.opencover.reportsPaths=TestResults/**/coverage.opencover.xml
             -Dsonar.sources=Cross.DataFilter/
             -Dsonar.tests=Cross.DataFilter.Tests/
+            -Dsonar.qualitygate.wait=${{ env.QUALITY_GATE_WAIT }}
             -Dsonar.verbose=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -104,13 +118,26 @@ jobs:
       - name: Nuget Pack
         run: nuget pack Cross.DataFilter/config.nuspec -Symbols -Version ${{ env.semVer }}
 
+      # Git tags: only stable SemVer on master/release/hotfix.
       - name: Create git Tag
-        if: ${{ contains('refs/heads/master', github.ref) || contains('refs/heads/release', github.ref) || contains('refs/heads/hotfix', github.ref) }}
+        if: >
+          !contains(env.semVer, '-') &&
+          (
+            github.ref == 'refs/heads/master' ||
+            startsWith(github.ref, 'refs/heads/release/') ||
+            startsWith(github.ref, 'refs/heads/hotfix/')
+          )
         run: |
           git tag v${{ env.semVer }}
 
       - name: Push git Tag
-        if: ${{ contains(fromJson('["refs/heads/master", "refs/heads/release", "refs/heads/hotfix"]'), github.ref) }}
+        if: >
+          !contains(env.semVer, '-') &&
+          (
+            github.ref == 'refs/heads/master' ||
+            startsWith(github.ref, 'refs/heads/release/') ||
+            startsWith(github.ref, 'refs/heads/hotfix/')
+          )
         run: |
           git config --global user.name 'Denis Peshkov'
           git config --global user.email 'denis.peshkov@outlook.com'
@@ -118,12 +145,20 @@ jobs:
           git push origin v${{ env.semVer }}
 
       - name: NuGet login (OIDC → temp API key)
-        if: ${{ !startsWith(github.ref, 'refs/pull') }}
+        if: >
+          github.ref == 'refs/heads/master' ||
+          startsWith(github.ref, 'refs/heads/release/') ||
+          startsWith(github.ref, 'refs/heads/hotfix/') ||
+          github.ref == 'refs/heads/dev'
         uses: NuGet/login@v1
         id: nuget-login
         with:
           user: peshkov
 
       - name: Nuget Push
-        if: ${{ !startsWith(github.ref, 'refs/pull') }}
+        if: >
+          github.ref == 'refs/heads/master' ||
+          startsWith(github.ref, 'refs/heads/release/') ||
+          startsWith(github.ref, 'refs/heads/hotfix/') ||
+          github.ref == 'refs/heads/dev'
         run: nuget push **/Cross.DataFilter.${{ env.semVer }}.symbols.nupkg -ApiKey ${{ steps.nuget-login.outputs.NUGET_API_KEY }} -Source "https://api.nuget.org/v3/index.json" -SkipDuplicate
