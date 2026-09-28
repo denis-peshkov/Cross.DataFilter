@@ -48,6 +48,6 @@ Release: [v2.0.0](https://github.com/denis-peshkov/Cross.DataFilter/releases/tag
 
 | Area | Was (1.0.x) | Now (2.0.0) |
 |---|---|---|
-| License file | `LICENSE` | `LICENSE.md` (RPL 1.5 + commercial option) |
+| License file | `LICENSE` | `LICENSE.md` (MIT) |
 
-**Action:** update links that pointed at `LICENSE`. Package `license` metadata in `config.nuspec` must match `LICENSE.md` (do not ship `MIT` if the repo license is RPL 1.5).
+**Action:** update links that pointed at `LICENSE`. Package `license` metadata in `config.nuspec` must match `LICENSE.md` (`MIT`).

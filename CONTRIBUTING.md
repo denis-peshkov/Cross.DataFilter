@@ -245,7 +245,7 @@ dotnet test Cross.DataFilter.Tests/Cross.DataFilter.Tests.csproj \
 
 ## License
 
-Code is under [RPL 1.5](LICENSE.md) (Reciprocal Public License). By contributing, you agree that derivative works are distributed under the same terms, or under a [Peshkov commercial license](https://peshkov.biz/license).
+Code is under the [MIT License](LICENSE.md). By contributing, you agree that your contributions are licensed under the same terms.
 
 There is no separate CLA — merging a PR means agreement with the repository license.
 

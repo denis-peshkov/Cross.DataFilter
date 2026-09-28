@@ -13,6 +13,3 @@ contact_links:
   - name: Core library (Cross.CQRS)
     url: https://github.com/denis-peshkov/Cross.CQRS
     about: Issues in MediatR pipeline / AddCQRS / core licensing belong in the sibling repo.
-  - name: Commercial license (Peshkov)
-    url: https://peshkov.biz/license
-    about: Licensing questions for production use — not for posting secrets in public issues.

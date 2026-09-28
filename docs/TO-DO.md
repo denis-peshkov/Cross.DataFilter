@@ -32,4 +32,4 @@
 - TFM библиотеки: `net8.0` до отдельного product decision о multi-targeting.
 - Solution format: `Cross.DataFilter.slnx` (не `Cross.DataFilter.sln`).
 - CI в этом репозитории сейчас — только `.github/workflows/dotnet.yml` (branch-policy / back-merge workflows пока нет).
-- Лицензия исходников — RPL 1.5 (+ commercial option) в `LICENSE.md`; `config.nuspec` `license` должен совпадать (не MIT, если LICENSE — RPL).
+- Лицензия исходников — MIT в `LICENSE.md`; `config.nuspec` `license` должен совпадать (`MIT`).

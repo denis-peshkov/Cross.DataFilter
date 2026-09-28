@@ -55,4 +55,4 @@ N/A
 
 ---
 
-**License:** By opening this PR, you agree that contributions are under [RPL 1.5](../LICENSE.md) (or [Peshkov commercial license](https://peshkov.biz/license) where applicable).
+**License:** By opening this PR, you agree that contributions are under the [MIT License](../LICENSE.md).
