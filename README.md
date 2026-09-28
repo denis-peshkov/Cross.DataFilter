@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/github/license/denis-peshkov/Cross.DataFilter)](LICENSE)
+[![License](https://img.shields.io/github/license/denis-peshkov/Cross.DataFilter)](LICENSE.md)
 [![GitHub Release Date](https://img.shields.io/github/release-date/denis-peshkov/Cross.DataFilter?label=released)](https://github.com/denis-peshkov/Cross.DataFilter/releases)
 [![NuGetVersion](https://img.shields.io/nuget/v/Cross.DataFilter.svg)](https://nuget.org/packages/Cross.DataFilter/)
 [![NugetDownloads](https://img.shields.io/nuget/dt/Cross.DataFilter.svg)](https://nuget.org/packages/Cross.DataFilter/)
