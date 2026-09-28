@@ -111,7 +111,7 @@ Git tags are created only for **stable** `X.Y.Z` (no `-` in `semVer`) on `master
 - PRs targeting **`master`** — repository owner only (`denis-peshkov`).
 - Pushing to **`master`**, **`release/*`**, or **`hotfix/*`** — owner only.
 - Release merge `dev` → `master`, tags, and NuGet publish — maintainer step after the release checklist.
-- CI today: `.github/workflows/dotnet.yml` (build, test, SonarCloud, pack, tag on `master`/`release/*`/`hotfix/*`, NuGet push), `.github/workflows/branch-policy.yml` (owner-only PRs/pushes to `master`/`release/*`/`hotfix/*`), `.github/workflows/backmerge-master-to-dev.yml` (owner `TAGTOKEN` back-merge; bootstraps `dev` if missing), and `.github/workflows/triage.yml` (optional Cursor triage; needs `CURSOR_API_KEY`).
+- CI today: `.github/workflows/dotnet.yml` (build, test, SonarCloud, pack, tag on `master`/`release/*`/`hotfix/*`, NuGet push), `.github/workflows/branch-policy.yml` (owner-only PRs/pushes to `master`/`release/*`/`hotfix/*`), `.github/workflows/breaking-gate.yml` (consumer-breaking PRs: CI adds `breaking-changes`, blocks until owner adds `breaking-approved`), `.github/workflows/backmerge-master-to-dev.yml` (owner `TAGTOKEN` back-merge; bootstraps `dev` if missing), and `.github/workflows/triage.yml` (optional Cursor triage; needs `CURSOR_API_KEY`).
 
 Versioning: **GitVersion** (`GitVersion.yml`). `dev` is pre-release (`-dev.N`), not a release branch.
 
@@ -183,12 +183,14 @@ See [Testing](#testing).
 - **Do not** open PRs into `master`, `release/*`, or `hotfix/*` unless you are the repository owner
 - Description: what, why, how to verify (**English** — for GitHub history)
 - Breaking consumer change → prefix the **PR title** with `BREAKING:`
+- CI detects `BREAKING:` title and/or a `docs/BREAKING.md` diff, adds the `breaking-changes` label, and **fails** until the repository owner adds `breaking-approved` (a comment is not enough)
 
 ### 5. CI
 
 Must pass:
 
 - `.NET` workflow (`dotnet build` + `dotnet test` on `Cross.DataFilter.slnx`)
+- `Breaking gate` when the PR is consumer-breaking (`BREAKING:` title and/or `docs/BREAKING.md` changed) — owner must add `breaking-approved`
 - SonarCloud analysis when enabled on the workflow
 
 ### 6. Review and merge

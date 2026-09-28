@@ -4,6 +4,14 @@
 # Restore: gh label create "NAME" --color COLOR --description "DESC" --force
 # Compatible with crazy-max/ghaction-github-labeler (list of maps).
 
+- name: "breaking-approved"
+  color: "0e8a16"
+  description: "Owner approved consumer-breaking change (unblocks breaking-gate)"
+
+- name: "breaking-changes"
+  color: "b60205"
+  description: "Consumer-breaking signals detected (BREAKING: title and/or docs/BREAKING.md)"
+
 - name: "bug"
   color: "e8372a"
   description: "Something is broken"
